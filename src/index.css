@@ -14,4 +14,38 @@ body {
 
 :root {
   --dark: #2F3136;
+  --magenta: #EB2F96;
+  --magenta-bg: #FFF0F6;
+  --magenta-border: #FFADD2;
+  --red: #F5222D;
+  --red-bg: #FFF1F0;
+  --red-border: #FFA39E;
+  --volcano: #FA541C;
+  --volcano-bg: #FFF2E8;
+  --vocalno-border: #FFBB96;
+  --orange: #FA8C16;
+  --orange-bg: #FFF7E6;
+  --orange-border: #FFD591;
+  --gold: #FAAD14;
+  --gold-bg: #FFFBE6;
+  --gold-border: #FFE58F;
+  --lime: #A0D911;
+  --lime-bg: #FCFFE6;
+  --lime-border: #EAFF8F;
+  --green: #52C41A;
+  --green-bg: #F6FFED;
+  --green-border: #B7EB8F;
+  --cyan: #13C2C2;
+  --cyan-bg: #E6FFFB;
+  --cyan-border: #87E8DE;
+  --blue: #1890FF;
+  --blue-bg: #E6F7FF;
+  --blue-border: #91D5FF;
+  --geekblue: #2F54EB;
+  --geekblue-bg: #F0F5FF;
+  --geekblue-border: #ADC6FF;
+  --purple: #722ED1;
+  --purple-bg: #F9F0FF;
+  --purple-border: #D3ADF7;
+  --blue-progress: #1890FF;
 }
