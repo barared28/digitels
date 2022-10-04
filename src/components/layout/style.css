@@ -1,0 +1,23 @@
+.container-layout {
+    width: 100vw;
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    overflow: auto;
+}
+
+.container-layout-logo {
+    width: 68px;
+    height: 100%;
+    background-color: var(--dark);
+}
+
+.logo-img {
+    object-fit: contain;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+.container-wrapper {
+    padding: 20px 50px;
+}
