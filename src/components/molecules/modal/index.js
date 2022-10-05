@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import './style.css';
 import Button from "../button";
 
-function Modal({ children, buttonCancel, buttonSubmit }) {
+function Modal({ children, buttonCancel, buttonSubmit, handleCancel }) {
     return (
         <div className="modal-container">
             <div className="modal-box">
@@ -12,7 +12,7 @@ function Modal({ children, buttonCancel, buttonSubmit }) {
                 </div>
                 <div className="modal-btn-group-action">
                     {buttonCancel && (
-                        <Button label="Cancel" type="cancel" />
+                        <Button label="Cancel" type="cancel" onClick={handleCancel} />
                     )}
                     {buttonSubmit && (
                         <Button label={buttonSubmit.label} type={buttonSubmit.type} onClick={buttonSubmit.onClick} />
@@ -31,6 +31,7 @@ Modal.propTypes = {
         type: PropTypes.string,
         onClick: PropTypes.func,
     }),
+    handleCancel: PropTypes.func,
 }
 
 Modal.defaultProps = {
@@ -41,6 +42,7 @@ Modal.defaultProps = {
         type: '',
         onClick: () => {},
     },
+    handleCancel: () => {},
 }
 
 export default Modal;

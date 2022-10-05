@@ -1,13 +1,16 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 import Modal from "../../molecules/modal";
 import './style.css';
+import { setShowModalTask} from "../../../redux/action";
 
-function ModalCreateTask({ type }) {
+function ModalCreateTask({ type, setModalTask }) {
     const ref = useRef(null);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const onSubmit = data => console.log(data);
+    console.log(setModalTask);
 
     return (
         <Modal
@@ -16,6 +19,7 @@ function ModalCreateTask({ type }) {
                 type: 'green',
                 onClick: () => ref.current.click(),
             }}
+            handleCancel={() => setModalTask(false)}
         >
             <div style={{ minWidth: '400px' }}>
                 <p className="text-lg font-bold mb-20">{`${type === 'new' ? 'Create' : 'Update'} Task`}</p>
@@ -61,10 +65,18 @@ function ModalCreateTask({ type }) {
 
 ModalCreateTask.propTypes = {
     type: PropTypes.string,
+    setModalTask: PropTypes.func,
 }
 
 ModalCreateTask.defaultProps = {
-    type: 'new'
+    type: 'new',
+    setModalTask: () => {},
 }
 
-export default ModalCreateTask;
+const mapStateToProps = () => {};
+
+const mapDispatchToProps = {
+    setModalTask: setShowModalTask,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateTask);
