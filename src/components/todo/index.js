@@ -11,32 +11,33 @@ import './style.css';
 const COLOR = ['magenta', 'purple', 'geekblue', 'green'];
 
 function Todo({ setModalTask, data, index }) {
-    console.log(data);
-    const { title, desc, items } = data;
+    const { title, desc, items, id } = data;
     const color = COLOR[index % 4];
     return (
-        <div
-            className="todo-container"
-            style={{ backgroundColor: `var(--${color}-light)`, border: `1px solid var(--${color})` }}
-        >
-            <div className="flex">
-                <Tag text={title} color={color} />
-            </div>
-            <p className="font-medium mt-4">{desc}</p>
-            <div className="todo-item-container">
-                {items.length > 0
-                    ? items.map(() => (<Item />))
-                    : <ItemEmpty />
-                }
-            </div>
-            <div>
-                <button
-                    className="btn-add-task"
-                    onClick={() => setModalTask(true)}
-                >
-                    <AddIcon />
-                    New Task
-                </button>
+        <div>
+            <div
+                className="todo-container"
+                style={{ backgroundColor: `var(--${color}-light)`, border: `1px solid var(--${color})` }}
+            >
+                <div className="flex">
+                    <Tag text={title} color={color} />
+                </div>
+                <p className="font-medium mt-4">{desc}</p>
+                <div className="todo-item-container">
+                    {items.length > 0
+                        ? items.map(val => (<Item data={val} />))
+                        : <ItemEmpty />
+                    }
+                </div>
+                <div>
+                    <button
+                        className="btn-add-task"
+                        onClick={() => setModalTask({ show: true, id })}
+                    >
+                        <AddIcon />
+                        New Task
+                    </button>
+                </div>
             </div>
         </div>
     );
@@ -54,7 +55,7 @@ Todo.propTypes = {
         id: PropTypes.number,
         title: PropTypes.string,
         desc: PropTypes.string,
-        items: PropTypes.arrayOf({}),
+        items: PropTypes.arrayOf(PropTypes.shape),
     }),
     index: PropTypes.number,
 }

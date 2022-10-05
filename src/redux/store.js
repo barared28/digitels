@@ -3,8 +3,14 @@ import thunk from "redux-thunk";
 import reducer from "./reducer";
 
 const initialState = {
-    showCreateTask: false,
-    showDeleteTask: false,
+    createTask: {
+        show: false,
+        id: 0,
+    },
+    deleteTask: {
+        show: false,
+        id: 0,
+    },
     todos: [],
 };
 

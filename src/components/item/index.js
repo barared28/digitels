@@ -4,12 +4,13 @@ import './style.css';
 import Progress from "../molecules/progress";
 import MenuItem from "../molecules/menu-item";
 
-function Item({ type }) {
+function Item({ type, data }) {
+    const { name, progress_percentage: percent } = data
     return (
         <div className="item-box">
-            <p className="font-medium item-text">Re-designed the zero-g doggie bags. No more spills!</p>
+            <p className="font-medium item-text">{name}</p>
             <div className="item-action-container">
-                <Progress />
+                <Progress percent={percent} />
                 <MenuItem />
             </div>
         </div>
@@ -18,10 +19,20 @@ function Item({ type }) {
 
 Item.propTypes = {
     type: PropTypes.string,
+    data: PropTypes.shape({
+        name: PropTypes.string,
+        progress_percentage: PropTypes.number,
+        todo_id: PropTypes.number,
+    })
 }
 
 Item.defaultProps = {
     type: '',
+    data: {
+        name: '',
+        progress_percentage: 0,
+        todo_id: 0,
+    }
 }
 
 export default Item;

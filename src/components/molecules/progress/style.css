@@ -28,6 +28,10 @@
     animation-fill-mode:both;
 }
 
+.bar-percent-full {
+    background-color: var(--green);
+}
+
 .progress-bar-text {
     color: var(--gray-text);
 }

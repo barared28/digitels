@@ -1,8 +1,14 @@
 import ACTIONS from "../types";
 
 const initialState = {
-    showCreateTask: false,
-    showDeleteTask: false,
+    createTask: {
+        show: false,
+        id: 0,
+    },
+    deleteTask: {
+        show: false,
+        id: 0,
+    },
     todos: [],
 };
 
@@ -12,7 +18,10 @@ const TodoReducer = (state = initialState, action) => {
         case ACTIONS.SET_MODAL_TASK:
             return {
                 ...state,
-                showCreateTask: payload.show,
+                createTask: {
+                    show: payload.show,
+                    id: payload.id,
+                },
             };
         case ACTIONS.SET_TODOS:
             return {

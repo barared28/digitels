@@ -12,6 +12,8 @@ function Todos({ showCreateTask, fetchTodos, todos }) {
         fetchTodos();
     }, []);
 
+    console.log(showCreateTask);
+
     return (
         <Layout>
             <h2 className="todos-title">Product Roadmap</h2>
@@ -28,7 +30,7 @@ function Todos({ showCreateTask, fetchTodos, todos }) {
 }
 
 const mapStateToProps = (state) => ({
-    showCreateTask: state.showCreateTask,
+    showCreateTask: state.createTask.show,
     todos: state.todos,
 });
 

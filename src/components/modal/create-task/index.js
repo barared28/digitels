@@ -3,14 +3,26 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 import Modal from "../../molecules/modal";
+import { fetchDataTodo, setShowModalTask } from "../../../redux/action";
+import API from "../../../config/api";
 import './style.css';
-import { setShowModalTask} from "../../../redux/action";
 
-function ModalCreateTask({ type, setModalTask }) {
+function ModalCreateTask({ type, setModalTask, idTodo, fetchTodo, todos }) {
     const ref = useRef(null);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(setModalTask);
+    console.log(idTodo);
+    const onSubmit = async (data) => {
+        try {
+            await API.post(`/todos/${idTodo}/items`, {
+                name: data.task,
+                progress_percentage: data.progress,
+            });
+            setModalTask({ show: false, id: 0 });
+            fetchTodo(idTodo, todos);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <Modal
@@ -19,7 +31,7 @@ function ModalCreateTask({ type, setModalTask }) {
                 type: 'green',
                 onClick: () => ref.current.click(),
             }}
-            handleCancel={() => setModalTask(false)}
+            handleCancel={() => setModalTask({ show: false, id: 0 })}
         >
             <div style={{ minWidth: '400px' }}>
                 <p className="text-lg font-bold mb-20">{`${type === 'new' ? 'Create' : 'Update'} Task`}</p>
@@ -66,17 +78,23 @@ function ModalCreateTask({ type, setModalTask }) {
 ModalCreateTask.propTypes = {
     type: PropTypes.string,
     setModalTask: PropTypes.func,
+    idTodo: PropTypes.number,
 }
 
 ModalCreateTask.defaultProps = {
     type: 'new',
     setModalTask: () => {},
+    idTodo: 0,
 }
 
-const mapStateToProps = () => {};
+const mapStateToProps = (state) => ({
+    idTodo: state.createTask.id,
+    todos: state.todos,
+});
 
 const mapDispatchToProps = {
     setModalTask: setShowModalTask,
+    fetchTodo: fetchDataTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateTask);
