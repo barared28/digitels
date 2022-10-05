@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/layout";
 import Todo from "../../components/todo";
-
+import ModalCreateTask from "../../components/modal/create-task";
 import './style.css';
 
 function Todos() {
@@ -14,6 +14,7 @@ function Todos() {
                 <Todo />
                 <Todo />
             </div>
+            <ModalCreateTask />
         </Layout>
     );
 }

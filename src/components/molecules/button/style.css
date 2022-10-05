@@ -1,0 +1,37 @@
+.btn {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 16px;
+    border-radius: 2px;
+}
+
+.btn-cancel {
+    border: 1px solid var(--gray-5);
+    color: var(--dark);
+}
+
+.btn-cancel:hover {
+    background-color: var(--gray-bg);
+}
+
+.btn-red {
+    background-color: var(--red-btn);
+    border: 1px solid var(--red-btn);
+    color: white;
+}
+
+.btn-red:hover {
+    background-color: var(--red);
+}
+
+.btn-green {
+    background-color: var(--green-btn);
+    border: 1px solid var(--green-btn);
+    color: white;
+}
+
+.btn-green:hover {
+    background-color: var(--green);
+}
