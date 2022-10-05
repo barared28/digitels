@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Layout from "../../components/layout";
 import Todo from "../../components/todo";
@@ -16,8 +16,8 @@ function Todos({ showCreateTask, fetchTodos, todos }) {
         <Layout>
             <h2 className="todos-title">Product Roadmap</h2>
             <div className="todos-todo-container">
-                {todos.map(data => (
-                    <Todo data={data} />
+                {todos.map((data, index) => (
+                    <Todo data={data} key={`todo-${index}`} index={index} />
                 ))}
             </div>
             {showCreateTask && (

@@ -1,10 +1,15 @@
 import React from "react";
 import './style.css'
 
-function Tag() {
+function Tag({ text, color }) {
     return (
-        <div className="tag-box">
-            <p className="tag-text">Group Task 1</p>
+        <div
+            className="tag-box"
+            style={{ backgroundColor: `var(--${color}-bg)`, border: `1px solid var(--${color}-border)` }}
+        >
+            <p style={{ color: `var(--${color})` }}>
+                {text}
+            </p>
         </div>
     );
 }

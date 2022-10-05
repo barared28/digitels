@@ -21,10 +21,10 @@ p {
   --magenta: #EB2F96;
   --magenta-bg: #FFF0F6;
   --magenta-border: #FFADD2;
+  --magenta-light: #FFF9FB;
   --red: #F5222D;
   --red-bg: #FFF1F0;
   --red-border: #FFA39E;
-  --red-light: #FFF9FB;
   --volcano: #FA541C;
   --volcano-bg: #FFF2E8;
   --vocalno-border: #FFBB96;
@@ -40,6 +40,7 @@ p {
   --green: #52C41A;
   --green-bg: #F6FFED;
   --green-border: #B7EB8F;
+  --green-light: #F8FEF1;
   --cyan: #13C2C2;
   --cyan-bg: #E6FFFB;
   --cyan-border: #87E8DE;
@@ -49,9 +50,11 @@ p {
   --geekblue: #2F54EB;
   --geekblue-bg: #F0F5FF;
   --geekblue-border: #ADC6FF;
-  --purple: #722ED1;
+  --geekblue-light: #F7FAFF;
+  --purple: #7B61FF;;
   --purple-bg: #F9F0FF;
   --purple-border: #D3ADF7;
+  --purple-light: #FCFAFD;
   --blue-progress: #1890FF;
   --gray: #B7BDC9;;
   --gray-border: #E4E4E8;
