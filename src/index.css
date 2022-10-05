@@ -62,10 +62,16 @@ p {
   --gray-5: #D9D9D9;
   --red-btn: #EB5757;
   --green-btn: #27AE60;
+  --gray-label: #5D6372;
 }
 
 .flex {
   display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .font-medium {
@@ -84,6 +90,10 @@ p {
   margin-top: 8px;
 }
 
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .gap-15 {
   gap: 15px;
 }
@@ -98,4 +108,28 @@ p {
 
 .relative {
   position: relative;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--gray-label);
+  margin-bottom: 4px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid var(--gray-border);
+  color: var(--dark);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.text-error {
+  color: var(--red);
 }

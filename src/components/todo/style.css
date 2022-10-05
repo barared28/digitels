@@ -15,3 +15,16 @@
     gap: 12px 12px;
     margin-top: 10px;
 }
+
+.btn-add-task {
+    background-color: unset;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--dark);
+}
