@@ -1,14 +1,12 @@
 .container-layout {
     width: 100vw;
     min-height: 100vh;
-    height: 100vh;
     display: flex;
-    overflow: auto;
+    flex-direction: row;
 }
 
 .container-layout-logo {
     width: 68px;
-    height: 100%;
     background-color: var(--dark);
 }
 
@@ -20,4 +18,5 @@
 
 .container-wrapper {
     padding: 20px 50px;
+    width: 100%;
 }

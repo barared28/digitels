@@ -1,0 +1,12 @@
+.menu-button {
+    background-color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 6px 5px;
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background-color: var(--gray-bg);
+}

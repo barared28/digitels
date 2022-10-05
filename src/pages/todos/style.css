@@ -1,0 +1,10 @@
+.todos-title {
+    margin-bottom: 24px;
+}
+
+.todos-todo-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px 16px;
+}

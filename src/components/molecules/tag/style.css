@@ -1,0 +1,10 @@
+.tag-box {
+    padding: 1px 8px;
+    background-color: var(--magenta-bg);
+    border: 1px solid var(--magenta-border);
+    border-radius: 2px;
+}
+
+.tag-text {
+    color: var(--magenta);
+}

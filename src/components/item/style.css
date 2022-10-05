@@ -1,0 +1,16 @@
+.item-box {
+    background-color: white;
+    padding: 16px;
+    border: 1px solid var(--gray-border);
+}
+
+.item-text {
+    font-size: 0.9rem;
+}
+
+.item-action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}

@@ -12,6 +12,10 @@ body {
   margin: 0;
 }
 
+p {
+  font-size: 0.8rem;
+}
+
 :root {
   --dark: #2F3136;
   --magenta: #EB2F96;
@@ -20,6 +24,7 @@ body {
   --red: #F5222D;
   --red-bg: #FFF1F0;
   --red-border: #FFA39E;
+  --red-light: #FFF9FB;
   --volcano: #FA541C;
   --volcano-bg: #FFF2E8;
   --vocalno-border: #FFBB96;
@@ -48,4 +53,20 @@ body {
   --purple-bg: #F9F0FF;
   --purple-border: #D3ADF7;
   --blue-progress: #1890FF;
+  --gray: #B7BDC9;;
+  --gray-border: #E4E4E8;
+  --gray-bg: #F5F5F5;;
+  --gray-text: #8C8C8C;
+}
+
+.flex {
+  display: flex;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.mt-4 {
+  margin-top: 4px;
 }
