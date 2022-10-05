@@ -57,6 +57,8 @@ p {
   --gray-border: #E4E4E8;
   --gray-bg: #F5F5F5;;
   --gray-text: #8C8C8C;
+  --bg-btn-dropdown: #F5F0FC;
+  --btn-dropdown: #5E20B3;
 }
 
 .flex {

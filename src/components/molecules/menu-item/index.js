@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { ReactComponent as MenuIcon } from '../../../assets/menu.svg';
+import { ReactComponent as ArrowIcon } from '../../../assets/arrow.svg';
+import { ReactComponent as EditIcon } from '../../../assets/edit.svg';
+import { ReactComponent as DeleteIcon } from '../../../assets/delete.svg';
 import './style.css';
 
 function ContentDropDown({ handleClose }) {
@@ -28,10 +31,24 @@ function ContentDropDown({ handleClose }) {
 
     return (
         <div className="menu-item-dropdown-container" id="dropdown">
-            <button>Move Right</button>
-            <button>Move Left</button>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className="menu-dropdown-btn">
+                <div className="rotate">
+                    <ArrowIcon className="icon" />
+                </div>
+                Move Left
+            </button>
+            <button className="menu-dropdown-btn">
+                <ArrowIcon className="icon" />
+                Move Right
+            </button>
+            <button className="menu-dropdown-btn">
+                <EditIcon className="icon" />
+                Edit
+            </button>
+            <button className="menu-dropdown-btn">
+                <DeleteIcon className="icon" />
+                Delete
+            </button>
         </div>
     );
 }

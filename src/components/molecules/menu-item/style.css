@@ -20,8 +20,43 @@
     width: 138px;
     z-index: 10;
     background-color: white;
-    padding: 8px 20px;
+    padding: 8px 0;
     border: 1px solid var(--gray-border);
     border-radius: 4px;
     box-shadow: 0px 9px 28px 8px rgba(0, 0, 0, 0.05), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 3px 6px -4px rgba(0, 0, 0, 0.12);
+}
+
+.menu-dropdown-btn {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    padding: 6px 16px;
+    font-size: 14px;
+    text-align: start;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.menu-dropdown-btn:hover {
+    background-color: var(--bg-btn-dropdown);
+    color: var(--btn-dropdown);
+}
+
+.icon {
+    fill: var(--dark);
+}
+
+.menu-dropdown-btn:hover .icon {
+    fill: var(--btn-dropdown);
+}
+
+.rotate {
+    -webkit-transform: rotate(180deg); /* Safari and Chrome */
+    -moz-transform: rotate(180deg);   /* Firefox */
+    -ms-transform: rotate(180deg);   /* IE 9 */
+    -o-transform: rotate(180deg);   /* Opera */
+    transform: rotate(180deg);
+    display: flex;
+    align-items: start;
 }
