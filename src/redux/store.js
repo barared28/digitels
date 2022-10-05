@@ -4,6 +4,8 @@ import reducer from "./reducer";
 
 const initialState = {
     showCreateTask: false,
+    showDeleteTask: false,
+    todos: [],
 };
 
 const middleware = [thunk];

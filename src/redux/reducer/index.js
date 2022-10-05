@@ -2,6 +2,8 @@ import ACTIONS from "../types";
 
 const initialState = {
     showCreateTask: false,
+    showDeleteTask: false,
+    todos: [],
 };
 
 const TodoReducer = (state = initialState, action) => {
@@ -11,6 +13,11 @@ const TodoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 showCreateTask: payload.show,
+            };
+        case ACTIONS.SET_TODOS:
+            return {
+                ...state,
+                todos: payload,
             }
         default:
             return state;

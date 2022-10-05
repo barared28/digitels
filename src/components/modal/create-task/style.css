@@ -1,3 +1,10 @@
 .progress-input {
     width: 100px;
+    -moz-appearance: textfield;
+}
+
+.progress-input::-webkit-outer-spin-button,
+.progress-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
