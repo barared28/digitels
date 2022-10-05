@@ -4,15 +4,14 @@ import Layout from "../../components/layout";
 import Todo from "../../components/todo";
 import ModalCreateTask from "../../components/modal/create-task";
 import { fetchDataTodos } from '../../redux/action';
+import ModalDeleteTask from "../../components/modal/delete-task";
 import './style.css';
 
-function Todos({ showCreateTask, fetchTodos, todos }) {
+function Todos({ showCreateTask, fetchTodos, todos, showDeleteTask }) {
 
     useEffect(() => {
         fetchTodos();
     }, []);
-
-    console.log(showCreateTask);
 
     return (
         <Layout>
@@ -25,12 +24,16 @@ function Todos({ showCreateTask, fetchTodos, todos }) {
             {showCreateTask && (
                 <ModalCreateTask />
             )}
+            {showDeleteTask && (
+                <ModalDeleteTask />
+            )}
         </Layout>
     );
 }
 
 const mapStateToProps = (state) => ({
     showCreateTask: state.createTask.show,
+    showDeleteTask: state.deleteTask.show,
     todos: state.todos,
 });
 

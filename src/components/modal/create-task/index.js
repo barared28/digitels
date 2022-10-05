@@ -10,7 +10,6 @@ import './style.css';
 function ModalCreateTask({ type, setModalTask, idTodo, fetchTodo, todos }) {
     const ref = useRef(null);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
-    console.log(idTodo);
     const onSubmit = async (data) => {
         try {
             await API.post(`/todos/${idTodo}/items`, {

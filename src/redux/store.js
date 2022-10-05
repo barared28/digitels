@@ -9,7 +9,8 @@ const initialState = {
     },
     deleteTask: {
         show: false,
-        id: 0,
+        idTodo: 0,
+        idItem: 0,
     },
     todos: [],
 };
