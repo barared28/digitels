@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,9 @@ function ModalCreateTask(props) {
         setModalTask,
         idTodo,
         fetchTodo,
-        todos
+        todos,
+        payload,
+        idItem,
     } = props;
     const ref = useRef(null);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -25,6 +27,12 @@ function ModalCreateTask(props) {
                     name: data.task,
                     progress_percentage: data.progress,
                 });
+            } else if (type === 'update') {
+                await API.patch(`/todos/${idTodo}/items/${idItem}`, {
+                    name: data.task,
+                    progress_percentage: data.progress,
+                    target_todo_id: idTodo,
+                });
             }
             setModalTask({ show: false, id: 0, type: 'new', payload: {} });
             fetchTodo(idTodo, todos);
@@ -32,6 +40,13 @@ function ModalCreateTask(props) {
             console.log(e);
         }
     };
+
+    useEffect(() => {
+        if (type === 'update') {
+            setValue('task', payload.name || '');
+            setValue('progress', payload.progress || 0);
+        }
+    }, [type])
 
     return (
         <Modal
@@ -88,17 +103,29 @@ ModalCreateTask.propTypes = {
     type: PropTypes.string,
     setModalTask: PropTypes.func,
     idTodo: PropTypes.number,
+    payload: PropTypes.shape({
+        name: PropTypes.string,
+        progress: PropTypes.number,
+    }),
+    idItem: PropTypes.number,
 }
 
 ModalCreateTask.defaultProps = {
     type: '',
     setModalTask: () => {},
     idTodo: 0,
+    payload: {
+        name: '',
+        progress: 0,
+    },
+    idItem: 0,
 }
 
 const mapStateToProps = (state) => ({
     idTodo: state.createTask.id,
+    idItem: state.createTask.idItem,
     type: state.createTask.type,
+    payload: state.createTask.payload,
     todos: state.todos,
 });
 

@@ -8,7 +8,8 @@ const initialState = {
         payload: {
             name: '',
             progress: '',
-        }
+        },
+        idItem: 0,
     },
     deleteTask: {
         show: true,
@@ -29,6 +30,7 @@ const TodoReducer = (state = initialState, action) => {
                     id: payload.id,
                     type: payload.type,
                     payload: payload.payload,
+                    idItem: payload.idItem,
                 },
             };
         case ACTIONS.SET_TODOS:

@@ -32,7 +32,7 @@ function Todo({ setModalTask, data, index }) {
                 <div>
                     <button
                         className="btn-add-task"
-                        onClick={() => setModalTask({ show: true, id, type: 'new', payload: {} })}
+                        onClick={() => setModalTask({ show: true, id, type: 'new', payload: {}, idItem: 0 })}
                     >
                         <AddIcon />
                         New Task

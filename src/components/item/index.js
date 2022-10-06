@@ -6,7 +6,7 @@ import MenuItem from "../molecules/menu-item";
 import { setShowDeleteTask, setShowModalTask } from "../../redux/action";
 import './style.css';
 
-function Item({ data, setDeleteTask }) {
+function Item({ data, setDeleteTask, setModalTask }) {
     const { name, progress_percentage: percent, todo_id: idTodo, id } = data;
 
     const handleDelete = () => {
@@ -18,7 +18,7 @@ function Item({ data, setDeleteTask }) {
     };
 
     const handleEdit = () => {
-
+        setModalTask({ show: true, id: idTodo, type: 'update', payload: { name, progress: percent }, idItem: id })
     }
 
     return (
@@ -30,7 +30,7 @@ function Item({ data, setDeleteTask }) {
                     onDelete={handleDelete}
                     onMoveRight={() => {}}
                     onMoveLeft={() => {}}
-                    onEdit={() => {}}
+                    onEdit={handleEdit}
                 />
             </div>
         </div>

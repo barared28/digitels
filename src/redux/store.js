@@ -10,7 +10,8 @@ const initialState = {
         payload: {
             name: '',
             progress: '',
-        }
+        },
+        idItem: 0,
     },
     deleteTask: {
         show: false,
