@@ -28,13 +28,11 @@ export const fetchDataTodo = (idTodos, todos) => async (dispatch) => {
         const res = await fetchTodo(idTodo);
         return { id: idTodo, items: res }
     }));
-    console.log(todosRes);
     const newTodos = [...todos];
     todosRes.forEach((val) => {
         const find = newTodos.findIndex(({ id }) => id === val.id);
         if (find > -1) {
             newTodos[find] = { ...newTodos[find], items: val.items };
-            console.log(find, val);
         }
     });
     dispatch({

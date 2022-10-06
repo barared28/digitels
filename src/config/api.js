@@ -8,7 +8,6 @@ const API = axios.create({
 });
 
 const token = process.env.REACT_APP_TOKEN || '';
-console.log(token);
 
 if (token) {
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
