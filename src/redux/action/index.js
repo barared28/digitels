@@ -23,21 +23,14 @@ export const fetchDataTodos = () => async (dispatch) => {
     });
 }
 
-export const fetchDataTodo = (idTodos, todos) => async (dispatch) => {
+export const fetchDataTodo = (idTodos) => async (dispatch) => {
     const todosRes = await Promise.all(idTodos.map(async (idTodo) => {
         const res = await fetchTodo(idTodo);
         return { id: idTodo, items: res }
     }));
-    const newTodos = [...todos];
-    todosRes.forEach((val) => {
-        const find = newTodos.findIndex(({ id }) => id === val.id);
-        if (find > -1) {
-            newTodos[find] = { ...newTodos[find], items: val.items };
-        }
-    });
     dispatch({
-        type: ACTIONS.SET_TODOS,
-        payload: newTodos,
+        type: ACTIONS.UPDATE_TODOS,
+        payload: todosRes,
     });
 }
 

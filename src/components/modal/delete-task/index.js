@@ -7,7 +7,7 @@ import API from "../../../config/api";
 
 
 function ModalDeleteTask(props) {
-    const { idTodo, idItem, setDeleteTask, fetchTodo, todos, setLoad, isLoading } = props;
+    const { idTodo, idItem, setDeleteTask, fetchTodo, setLoad, isLoading } = props;
 
     const handleClose = () => {
         setDeleteTask({ show: false, idTodo: 0, idItem: 0 });
@@ -18,7 +18,7 @@ function ModalDeleteTask(props) {
             setLoad(true);
             await API.delete(`/todos/${idTodo}/items/${idItem}`);
             handleClose();
-            fetchTodo([idTodo], todos);
+            fetchTodo([idTodo]);
         } catch (e) {
             console.log(e);
         } finally {
@@ -54,7 +54,6 @@ function ModalDeleteTask(props) {
 const mapStateToProps = (state) => ({
     idTodo: state.deleteTask.idTodo,
     idItem: state.deleteTask.idItem,
-    todos: state.todos,
     isLoading: state.isLoading,
 });
 

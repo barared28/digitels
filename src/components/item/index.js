@@ -43,7 +43,7 @@ function Item(props) {
                 progress_percentage: data.progress,
                 target_todo_id: targetId,
             });
-            fetchTodo([idTodo, targetId], todos);
+            fetchTodo([idTodo, targetId]);
         } catch (e) {
             console.log(e);
         }

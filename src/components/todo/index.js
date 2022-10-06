@@ -12,7 +12,7 @@ import './style.css';
 
 const COLOR = ['magenta', 'purple', 'geekblue', 'green'];
 
-function Todo({ setModalTask, data, index, totalTodos, todos, fetchTodo }) {
+function Todo({ setModalTask, data, index, totalTodos, fetchTodo }) {
     const { title, desc, items, id } = data;
 
     const [{ isOver }, drop] = useDrop(() => ({
@@ -28,13 +28,14 @@ function Todo({ setModalTask, data, index, totalTodos, todos, fetchTodo }) {
         if (item.idTodo === id) {
             return;
         }
+
         try {
             await API.patch(`/todos/${item.idTodo}/items/${item.idItem}`, {
                 name: data.task,
                 progress_percentage: data.progress,
                 target_todo_id: id,
             });
-            fetchTodo([item.idTodo, id], todos);
+            fetchTodo([item.idTodo, id]);
         } catch (e) {
             console.log(e)
         }
@@ -87,9 +88,7 @@ function Todo({ setModalTask, data, index, totalTodos, todos, fetchTodo }) {
     );
 }
 
-const mapStateToProps = (state) => ({
-    todos: state.todos,
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
     setModalTask: setShowModalTask,
@@ -106,7 +105,6 @@ Todo.propTypes = {
     }),
     index: PropTypes.number,
     totalTodos: PropTypes.number,
-    todos: PropTypes.array,
     fetchTodo: PropTypes.func,
 }
 
@@ -120,7 +118,6 @@ Todo.defaultProps = {
     },
     index: 0,
     totalTodos: 0,
-    todos: [],
     fetchTodo: () => {},
 }
 

@@ -50,6 +50,15 @@ const TodoReducer = (state = initialState, action) => {
             }
         case ACTIONS.SET_LOADING:
             return { ...state, isLoading: payload }
+        case ACTIONS.UPDATE_TODOS:
+            const newTodos = [...state.todos];
+            payload.forEach((val) => {
+                const find = state.todos.findIndex(({ id }) => id === val.id);
+                if (find > -1) {
+                    newTodos[find] = { ...newTodos[find], items: val.items };
+                }
+            });
+            return { ...state, todos: newTodos }
         default:
             return state;
     }
