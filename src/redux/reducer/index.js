@@ -17,6 +17,7 @@ const initialState = {
         idItem: 0,
     },
     todos: [],
+    isLoading: false,
 };
 
 const TodoReducer = (state = initialState, action) => {
@@ -47,6 +48,8 @@ const TodoReducer = (state = initialState, action) => {
                     idItem: payload.idItem,
                 }
             }
+        case ACTIONS.SET_LOADING:
+            return { ...state, isLoading: payload }
         default:
             return state;
     }

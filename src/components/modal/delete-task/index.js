@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import Modal from "../../molecules/modal";
 import { ReactComponent as WarningIcon } from '../../../assets/warning.svg';
-import { fetchDataTodo, setShowDeleteTask } from "../../../redux/action";
+import { fetchDataTodo, setLoading, setShowDeleteTask } from "../../../redux/action";
 import API from "../../../config/api";
 
 
 function ModalDeleteTask(props) {
-    const { idTodo, idItem, setDeleteTask, fetchTodo, todos } = props;
+    const { idTodo, idItem, setDeleteTask, fetchTodo, todos, setLoad, isLoading } = props;
 
     const handleClose = () => {
         setDeleteTask({ show: false, idTodo: 0, idItem: 0 });
@@ -15,11 +15,14 @@ function ModalDeleteTask(props) {
 
     const handleDelete = async () => {
         try {
+            setLoad(true);
             await API.delete(`/todos/${idTodo}/items/${idItem}`);
             handleClose();
             fetchTodo([idTodo], todos);
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoad(false);
         }
     };
 
@@ -31,6 +34,7 @@ function ModalDeleteTask(props) {
                 onClick: () => handleDelete(),
             }}
             handleCancel={handleClose}
+            isLoading={isLoading}
         >
             <div className="flex gap-15" style={{ maxWidth: '350px' }}>
                 <div>
@@ -51,11 +55,13 @@ const mapStateToProps = (state) => ({
     idTodo: state.deleteTask.idTodo,
     idItem: state.deleteTask.idItem,
     todos: state.todos,
+    isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {
     setDeleteTask: setShowDeleteTask,
     fetchTodo: fetchDataTodo,
+    setLoad: setLoading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalDeleteTask);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 import Modal from "../../molecules/modal";
-import { fetchDataTodo, setShowModalTask } from "../../../redux/action";
+import { fetchDataTodo, setShowModalTask, setLoading } from "../../../redux/action";
 import API from "../../../config/api";
 import './style.css';
 
@@ -16,12 +16,15 @@ function ModalCreateTask(props) {
         todos,
         payload,
         idItem,
+        isLoading,
+        setLoad,
     } = props;
     const ref = useRef(null);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const onSubmit = async (data) => {
         try {
+            setLoad(true);
             if (type === 'new') {
                 await API.post(`/todos/${idTodo}/items`, {
                     name: data.task,
@@ -38,6 +41,8 @@ function ModalCreateTask(props) {
             fetchTodo([idTodo], todos);
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoad(false)
         }
     };
 
@@ -56,9 +61,10 @@ function ModalCreateTask(props) {
                 onClick: () => ref.current.click(),
             }}
             handleCancel={() => setModalTask({ show: false, id: 0 })}
+            isLoading={isLoading}
         >
             <div style={{ minWidth: '400px' }}>
-                <p className="text-lg font-bold mb-20">{`${type === 'new' ? 'Create' : 'Update'} Task`}</p>
+                <p className="text-lg font-bold mb-20">{`${type === 'new' ? 'Create' : 'Edit'} Task`}</p>
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex-col">
                         <label className="label" htmlFor="task" >Task Name</label>
@@ -108,6 +114,8 @@ ModalCreateTask.propTypes = {
         progress: PropTypes.number,
     }),
     idItem: PropTypes.number,
+    isLoading: PropTypes.bool,
+    setLoad: PropTypes.func,
 }
 
 ModalCreateTask.defaultProps = {
@@ -119,6 +127,8 @@ ModalCreateTask.defaultProps = {
         progress: 0,
     },
     idItem: 0,
+    isLoading: false,
+    setLoad: () => {},
 }
 
 const mapStateToProps = (state) => ({
@@ -127,11 +137,13 @@ const mapStateToProps = (state) => ({
     type: state.createTask.type,
     payload: state.createTask.payload,
     todos: state.todos,
+    isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {
     setModalTask: setShowModalTask,
     fetchTodo: fetchDataTodo,
+    setLoad: setLoading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateTask);

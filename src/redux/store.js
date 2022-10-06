@@ -19,6 +19,7 @@ const initialState = {
         idItem: 0,
     },
     todos: [],
+    isLoading: false,
 };
 
 const middleware = [thunk];

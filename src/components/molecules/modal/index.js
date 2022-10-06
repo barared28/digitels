@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './style.css';
 import Button from "../button";
+import './style.css';
 
-function Modal({ children, buttonCancel, buttonSubmit, handleCancel }) {
+function Modal({ children, buttonCancel, buttonSubmit, handleCancel, isLoading }) {
     return (
         <div className="modal-container">
             <div className="modal-box">
@@ -12,10 +12,20 @@ function Modal({ children, buttonCancel, buttonSubmit, handleCancel }) {
                 </div>
                 <div className="modal-btn-group-action">
                     {buttonCancel && (
-                        <Button label="Cancel" type="cancel" onClick={handleCancel} />
+                        <Button
+                            label="Cancel"
+                            type="cancel"
+                            onClick={handleCancel}
+                            disabled={isLoading}
+                        />
                     )}
                     {buttonSubmit && (
-                        <Button label={buttonSubmit.label} type={buttonSubmit.type} onClick={buttonSubmit.onClick} />
+                        <Button
+                            label={buttonSubmit.label}
+                            type={buttonSubmit.type}
+                            onClick={buttonSubmit.onClick}
+                            disabled={isLoading}
+                        />
                     )}
                 </div>
             </div>
@@ -32,6 +42,7 @@ Modal.propTypes = {
         onClick: PropTypes.func,
     }),
     handleCancel: PropTypes.func,
+    isLoading: PropTypes.bool,
 }
 
 Modal.defaultProps = {
@@ -43,6 +54,7 @@ Modal.defaultProps = {
         onClick: () => {},
     },
     handleCancel: () => {},
+    isLoading: false,
 }
 
 export default Modal;

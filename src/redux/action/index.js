@@ -42,3 +42,10 @@ export const fetchDataTodo = (idTodos, todos) => async (dispatch) => {
         payload: newTodos,
     });
 }
+
+export const setLoading = (val) => async (dispatch) => {
+    dispatch({
+        type: ACTIONS.SET_LOADING,
+        payload: val,
+    });
+}

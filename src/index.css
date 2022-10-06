@@ -136,3 +136,7 @@ p {
 .text-error {
   color: var(--red);
 }
+
+.cursor-disable {
+  cursor: not-allowed;
+}
