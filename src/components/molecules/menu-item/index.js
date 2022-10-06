@@ -4,10 +4,17 @@ import { ReactComponent as ArrowIcon } from '../../../assets/arrow.svg';
 import { ReactComponent as EditIcon } from '../../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../../assets/delete.svg';
 import './style.css';
+import PropTypes from "prop-types";
 
-function ContentDropDown({ handleClose }) {
+function ContentDropDown(props) {
     const [first, setFirst] = useState(true);
-
+    const {
+        handleClose,
+        onDelete,
+        onMoveRight,
+        onMoveLeft,
+        onEdit,
+    } = props;
 
     function helper(e){
         if (!(document.getElementById('dropdown').contains(e.target))){
@@ -29,23 +36,40 @@ function ContentDropDown({ handleClose }) {
         setFirst(false);
     }, [])
 
+    const handleClick = (callback) => {
+        handleClose();
+        callback();
+    }
+
     return (
         <div className="menu-item-dropdown-container" id="dropdown">
-            <button className="menu-dropdown-btn">
+            <button
+                className="menu-dropdown-btn"
+                onClick={() => handleClick(onMoveLeft)}
+            >
                 <div className="rotate">
                     <ArrowIcon className="icon" />
                 </div>
                 Move Left
             </button>
-            <button className="menu-dropdown-btn">
+            <button
+                className="menu-dropdown-btn"
+                onClick={() => handleClick(onMoveRight)}
+            >
                 <ArrowIcon className="icon" />
                 Move Right
             </button>
-            <button className="menu-dropdown-btn">
+            <button
+                className="menu-dropdown-btn"
+                onClick={() => handleClick(onEdit)}
+            >
                 <EditIcon className="icon" />
                 Edit
             </button>
-            <button className="menu-dropdown-btn">
+            <button
+                className="menu-dropdown-btn"
+                onClick={() => handleClick(onDelete)}
+            >
                 <DeleteIcon className="icon" />
                 Delete
             </button>
@@ -53,7 +77,7 @@ function ContentDropDown({ handleClose }) {
     );
 }
 
-function MenuItem() {
+function MenuItem(props) {
     const [showDrop, setShowDrop] = useState(false);
     return (
         <div className="relative">
@@ -64,10 +88,24 @@ function MenuItem() {
                 <MenuIcon />
             </button>
             {showDrop && (
-                <ContentDropDown handleClose={() => setShowDrop(false)} show={showDrop} />
+                <ContentDropDown handleClose={() => setShowDrop(false)} show={showDrop} {...props} />
             )}
         </div>
     );
+}
+
+MenuItem.propTypes = {
+    onDelete: PropTypes.func,
+    onMoveRight: PropTypes.func,
+    onMoveLeft: PropTypes.func,
+    onEdit: PropTypes.func,
+}
+
+MenuItem.defaultProps = {
+    onDelete: () => {},
+    onMoveRight: () => {},
+    onMoveLeft: () => {},
+    onEdit: () => {},
 }
 
 export default MenuItem;

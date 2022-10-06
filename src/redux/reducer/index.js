@@ -4,10 +4,16 @@ const initialState = {
     createTask: {
         show: false,
         id: 0,
+        type: 'new',
+        payload: {
+            name: '',
+            progress: '',
+        }
     },
     deleteTask: {
-        show: false,
-        id: 0,
+        show: true,
+        idTodo: 0,
+        idItem: 0,
     },
     todos: [],
 };
@@ -21,12 +27,23 @@ const TodoReducer = (state = initialState, action) => {
                 createTask: {
                     show: payload.show,
                     id: payload.id,
+                    type: payload.type,
+                    payload: payload.payload,
                 },
             };
         case ACTIONS.SET_TODOS:
             return {
                 ...state,
                 todos: payload,
+            }
+        case ACTIONS.SET_MODAL_DELETE:
+            return {
+                ...state,
+                deleteTask: {
+                    show: payload.show,
+                    idTodo: payload.idTodo,
+                    idItem: payload.idItem,
+                }
             }
         default:
             return state;

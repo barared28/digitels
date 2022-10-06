@@ -7,7 +7,6 @@ export const fetchAllTodo = async () => {
         const todos = await Promise.all(res.data.map(async (val) => {
             const resItem = await API.get(`/todos/${val.id}/items`);
             const items = sortFromOldest(resItem.data);
-            console.log(items);
             return {
                 id: val.id,
                 desc: val.description,

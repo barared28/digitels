@@ -6,6 +6,11 @@ const initialState = {
     createTask: {
         show: false,
         id: 0,
+        type: 'new',
+        payload: {
+            name: '',
+            progress: '',
+        }
     },
     deleteTask: {
         show: false,

@@ -25,14 +25,14 @@ function Todo({ setModalTask, data, index }) {
                 <p className="font-medium mt-4">{desc}</p>
                 <div className="todo-item-container">
                     {items.length > 0
-                        ? items.map(val => (<Item data={val} />))
+                        ? items.map((val, index) => (<Item data={val} key={index} />))
                         : <ItemEmpty />
                     }
                 </div>
                 <div>
                     <button
                         className="btn-add-task"
-                        onClick={() => setModalTask({ show: true, id })}
+                        onClick={() => setModalTask({ show: true, id, type: 'new', payload: {} })}
                     >
                         <AddIcon />
                         New Task

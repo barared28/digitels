@@ -7,16 +7,26 @@ import { fetchDataTodo, setShowModalTask } from "../../../redux/action";
 import API from "../../../config/api";
 import './style.css';
 
-function ModalCreateTask({ type, setModalTask, idTodo, fetchTodo, todos }) {
+function ModalCreateTask(props) {
+    const {
+        type,
+        setModalTask,
+        idTodo,
+        fetchTodo,
+        todos
+    } = props;
     const ref = useRef(null);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+
     const onSubmit = async (data) => {
         try {
-            await API.post(`/todos/${idTodo}/items`, {
-                name: data.task,
-                progress_percentage: data.progress,
-            });
-            setModalTask({ show: false, id: 0 });
+            if (type === 'new') {
+                await API.post(`/todos/${idTodo}/items`, {
+                    name: data.task,
+                    progress_percentage: data.progress,
+                });
+            }
+            setModalTask({ show: false, id: 0, type: 'new', payload: {} });
             fetchTodo(idTodo, todos);
         } catch (e) {
             console.log(e);
@@ -81,13 +91,14 @@ ModalCreateTask.propTypes = {
 }
 
 ModalCreateTask.defaultProps = {
-    type: 'new',
+    type: '',
     setModalTask: () => {},
     idTodo: 0,
 }
 
 const mapStateToProps = (state) => ({
     idTodo: state.createTask.id,
+    type: state.createTask.type,
     todos: state.todos,
 });
 

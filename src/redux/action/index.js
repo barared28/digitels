@@ -8,6 +8,13 @@ export const setShowModalTask = (data) => (dispatch) => {
     });
 };
 
+export const setShowDeleteTask = (data) => (dispatch) => {
+    dispatch({
+        type: ACTIONS.SET_MODAL_DELETE,
+        payload: data,
+    });
+};
+
 export const fetchDataTodos = () => async (dispatch) => {
     const res = await fetchAllTodo();
     dispatch({
