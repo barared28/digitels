@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Progress from "../molecules/progress";
 import MenuItem from "../molecules/menu-item";
-import { setShowDeleteTask, setShowModalTask } from "../../redux/action";
+import {fetchDataTodo, setShowDeleteTask, setShowModalTask} from "../../redux/action";
 import './style.css';
+import API from "../../config/api";
 
-function Item({ data, setDeleteTask, setModalTask }) {
+function Item(props) {
+    const {
+        data, setDeleteTask, setModalTask, showMoveRight,
+        showMoveLeft, todos, index, fetchTodo,
+    } = props
     const { name, progress_percentage: percent, todo_id: idTodo, id } = data;
 
     const handleDelete = () => {
@@ -16,6 +21,24 @@ function Item({ data, setDeleteTask, setModalTask }) {
             idItem: id,
         })
     };
+
+    const handleMove = async (i) => {
+        const todo = todos[i];
+        try {
+            if (!todo) {
+                throw new Error('move failed');
+            }
+            const targetId = todo.id
+            await API.patch(`/todos/${idTodo}/items/${id}`, {
+                name: data.task,
+                progress_percentage: data.progress,
+                target_todo_id: targetId,
+            });
+            fetchTodo([idTodo, targetId], todos);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const handleEdit = () => {
         setModalTask({ show: true, id: idTodo, type: 'update', payload: { name, progress: percent }, idItem: id })
@@ -28,9 +51,11 @@ function Item({ data, setDeleteTask, setModalTask }) {
                 <Progress percent={percent} />
                 <MenuItem
                     onDelete={handleDelete}
-                    onMoveRight={() => {}}
-                    onMoveLeft={() => {}}
+                    onMoveRight={() => handleMove(index + 1)}
+                    onMoveLeft={() => handleMove(index - 1)}
                     onEdit={handleEdit}
+                    showMoveLeft={showMoveLeft}
+                    showMoveRight={showMoveRight}
                 />
             </div>
         </div>
@@ -46,6 +71,11 @@ Item.propTypes = {
     }),
     setDeleteTask: PropTypes.func,
     setModalTask: PropTypes.func,
+    showMoveLeft: PropTypes.bool,
+    showMoveRight: PropTypes.bool,
+    todos: PropTypes.array,
+    index: PropTypes.number,
+    fetchTodo: PropTypes.func,
 }
 
 Item.defaultProps = {
@@ -57,13 +87,21 @@ Item.defaultProps = {
     },
     setDeleteTask: () => {},
     setModalTask: () => {},
+    showMoveLeft: false,
+    showMoveRight: false,
+    todos: [],
+    index: 0,
+    fetchTodo: () => {},
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+    todos: state.todos,
+});
 
 const mapDispatchToProps = {
     setDeleteTask: setShowDeleteTask,
     setModalTask: setShowModalTask,
+    fetchTodo: fetchDataTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item);

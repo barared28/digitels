@@ -17,7 +17,7 @@ function ModalDeleteTask(props) {
         try {
             await API.delete(`/todos/${idTodo}/items/${idItem}`);
             handleClose();
-            fetchTodo(idTodo, todos);
+            fetchTodo([idTodo], todos);
         } catch (e) {
             console.log(e);
         }

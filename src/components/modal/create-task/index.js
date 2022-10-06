@@ -35,7 +35,7 @@ function ModalCreateTask(props) {
                 });
             }
             setModalTask({ show: false, id: 0, type: 'new', payload: {} });
-            fetchTodo(idTodo, todos);
+            fetchTodo([idTodo], todos);
         } catch (e) {
             console.log(e);
         }

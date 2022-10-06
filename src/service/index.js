@@ -21,7 +21,7 @@ export const fetchAllTodo = async () => {
     }
 }
 
-export const fetchTod = async (id) => {
+export const fetchTodo = async (id) => {
     try {
         const resItem = await API.get(`/todos/${id}/items`);
         const items = sortFromOldest([...resItem.data]);

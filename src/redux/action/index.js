@@ -1,5 +1,5 @@
 import ACTIONS from "../types";
-import { fetchAllTodo, fetchTod } from "../../service";
+import { fetchAllTodo, fetchTodo } from "../../service";
 
 export const setShowModalTask = (data) => (dispatch) => {
     dispatch({
@@ -23,15 +23,22 @@ export const fetchDataTodos = () => async (dispatch) => {
     });
 }
 
-export const fetchDataTodo = (idTodo, todos) => async (dispatch) => {
-    const res = await fetchTod(idTodo);
-    const find = todos.findIndex(({ id }) => id === idTodo);
-    if (find > -1) {
-        const newTodos = [...todos];
-        newTodos[find] = { ...newTodos[find], items: res };
-        dispatch({
-            type: ACTIONS.SET_TODOS,
-            payload: newTodos,
-        });
-    }
+export const fetchDataTodo = (idTodos, todos) => async (dispatch) => {
+    const todosRes = await Promise.all(idTodos.map(async (idTodo) => {
+        const res = await fetchTodo(idTodo);
+        return { id: idTodo, items: res }
+    }));
+    console.log(todosRes);
+    const newTodos = [...todos];
+    todosRes.forEach((val) => {
+        const find = newTodos.findIndex(({ id }) => id === val.id);
+        if (find > -1) {
+            newTodos[find] = { ...newTodos[find], items: val.items };
+            console.log(find, val);
+        }
+    });
+    dispatch({
+        type: ACTIONS.SET_TODOS,
+        payload: newTodos,
+    });
 }

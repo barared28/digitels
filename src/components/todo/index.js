@@ -10,9 +10,11 @@ import './style.css';
 
 const COLOR = ['magenta', 'purple', 'geekblue', 'green'];
 
-function Todo({ setModalTask, data, index }) {
+function Todo({ setModalTask, data, index, totalTodos }) {
     const { title, desc, items, id } = data;
     const color = COLOR[index % 4];
+    const showMoveLeft = index > 0;
+    const showMoveRight = index < (totalTodos - 1);
     return (
         <div>
             <div
@@ -25,7 +27,15 @@ function Todo({ setModalTask, data, index }) {
                 <p className="font-medium mt-4">{desc}</p>
                 <div className="todo-item-container">
                     {items.length > 0
-                        ? items.map((val, index) => (<Item data={val} key={index} />))
+                        ? items.map((val, i) => (
+                            <Item
+                                data={val}
+                                key={i}
+                                index={index}
+                                showMoveLeft={showMoveLeft}
+                                showMoveRight={showMoveRight}
+                            />
+                        ))
                         : <ItemEmpty />
                     }
                 </div>
@@ -58,6 +68,7 @@ Todo.propTypes = {
         items: PropTypes.arrayOf(PropTypes.shape),
     }),
     index: PropTypes.number,
+    totalTodos: PropTypes.number,
 }
 
 Todo.defaultProps = {
@@ -69,6 +80,7 @@ Todo.defaultProps = {
         items: [],
     },
     index: 0,
+    totalTodos: 0,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);

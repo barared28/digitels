@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { ReactComponent as MenuIcon } from '../../../assets/menu.svg';
 import { ReactComponent as ArrowIcon } from '../../../assets/arrow.svg';
 import { ReactComponent as EditIcon } from '../../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../../assets/delete.svg';
 import './style.css';
-import PropTypes from "prop-types";
 
 function ContentDropDown(props) {
     const [first, setFirst] = useState(true);
@@ -14,6 +14,8 @@ function ContentDropDown(props) {
         onMoveRight,
         onMoveLeft,
         onEdit,
+        showMoveRight,
+        showMoveLeft,
     } = props;
 
     function helper(e){
@@ -43,22 +45,26 @@ function ContentDropDown(props) {
 
     return (
         <div className="menu-item-dropdown-container" id="dropdown">
-            <button
-                className="menu-dropdown-btn"
-                onClick={() => handleClick(onMoveLeft)}
-            >
-                <div className="rotate">
+            {showMoveLeft && (
+                <button
+                    className="menu-dropdown-btn"
+                    onClick={() => handleClick(onMoveLeft)}
+                >
+                    <div className="rotate">
+                        <ArrowIcon className="icon" />
+                    </div>
+                    Move Left
+                </button>
+            )}
+            {showMoveRight && (
+                <button
+                    className="menu-dropdown-btn"
+                    onClick={() => handleClick(onMoveRight)}
+                >
                     <ArrowIcon className="icon" />
-                </div>
-                Move Left
-            </button>
-            <button
-                className="menu-dropdown-btn"
-                onClick={() => handleClick(onMoveRight)}
-            >
-                <ArrowIcon className="icon" />
-                Move Right
-            </button>
+                    Move Right
+                </button>
+            )}
             <button
                 className="menu-dropdown-btn"
                 onClick={() => handleClick(onEdit)}
@@ -99,6 +105,8 @@ MenuItem.propTypes = {
     onMoveRight: PropTypes.func,
     onMoveLeft: PropTypes.func,
     onEdit: PropTypes.func,
+    showMoveLeft: PropTypes.bool,
+    showMoveRight: PropTypes.bool,
 }
 
 MenuItem.defaultProps = {
@@ -106,6 +114,8 @@ MenuItem.defaultProps = {
     onMoveRight: () => {},
     onMoveLeft: () => {},
     onEdit: () => {},
+    showMoveLeft: false,
+    showMoveRight: false,
 }
 
 export default MenuItem;

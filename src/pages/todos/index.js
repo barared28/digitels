@@ -18,7 +18,7 @@ function Todos({ showCreateTask, fetchTodos, todos, showDeleteTask }) {
             <h2 className="todos-title">Product Roadmap</h2>
             <div className="todos-todo-container">
                 {todos.map((data, index) => (
-                    <Todo data={data} key={`todo-${index}`} index={index} />
+                    <Todo data={data} key={`todo-${index}`} index={index} totalTodos={todos.length} />
                 ))}
             </div>
             {showCreateTask && (
