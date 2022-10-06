@@ -1,17 +1,45 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { useDrop } from "react-dnd";
 import Tag from "../molecules/tag";
 import Item from "../item";
 import ItemEmpty from "../item/empty";
 import { ReactComponent as AddIcon } from '../../assets/add.svg';
-import { setShowModalTask } from "../../redux/action";
+import { fetchDataTodo, setShowModalTask } from "../../redux/action";
+import API from "../../config/api";
 import './style.css';
 
 const COLOR = ['magenta', 'purple', 'geekblue', 'green'];
 
-function Todo({ setModalTask, data, index, totalTodos }) {
+function Todo({ setModalTask, data, index, totalTodos, todos, fetchTodo }) {
     const { title, desc, items, id } = data;
+
+    const [{ isOver }, drop] = useDrop(() => ({
+        accept: "div",
+        drop: (item) => handleDropItem(item),
+        collect: (monitor) => {
+            const res = monitor.getItem();
+            return { isOver: !!monitor.isOver() && res.idTodo !== id }
+        },
+    }));
+
+    const handleDropItem = async (item) => {
+        if (item.idTodo === id) {
+            return;
+        }
+        try {
+            await API.patch(`/todos/${item.idTodo}/items/${item.idItem}`, {
+                name: data.task,
+                progress_percentage: data.progress,
+                target_todo_id: id,
+            });
+            fetchTodo([item.idTodo, id], todos);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     const color = COLOR[index % 4];
     const showMoveLeft = index > 0;
     const showMoveRight = index < (totalTodos - 1);
@@ -20,6 +48,7 @@ function Todo({ setModalTask, data, index, totalTodos }) {
             <div
                 className="todo-container"
                 style={{ backgroundColor: `var(--${color}-light)`, border: `1px solid var(--${color})` }}
+                ref={drop}
             >
                 <div className="flex">
                     <Tag text={title} color={color} />
@@ -38,6 +67,11 @@ function Todo({ setModalTask, data, index, totalTodos }) {
                         ))
                         : <ItemEmpty />
                     }
+                    {isOver && (
+                        <div className="drop-here-box">
+                            <p className="font-medium drop-here-text">Drop Here</p>
+                        </div>
+                    )}
                 </div>
                 <div>
                     <button
@@ -53,10 +87,13 @@ function Todo({ setModalTask, data, index, totalTodos }) {
     );
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+    todos: state.todos,
+});
 
 const mapDispatchToProps = {
     setModalTask: setShowModalTask,
+    fetchTodo: fetchDataTodo,
 };
 
 Todo.propTypes = {
@@ -69,6 +106,8 @@ Todo.propTypes = {
     }),
     index: PropTypes.number,
     totalTodos: PropTypes.number,
+    todos: PropTypes.array,
+    fetchTodo: PropTypes.func,
 }
 
 Todo.defaultProps = {
@@ -81,6 +120,8 @@ Todo.defaultProps = {
     },
     index: 0,
     totalTodos: 0,
+    todos: [],
+    fetchTodo: () => {},
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);

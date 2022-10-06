@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { useDrag } from "react-dnd";
 import Progress from "../molecules/progress";
 import MenuItem from "../molecules/menu-item";
-import {fetchDataTodo, setShowDeleteTask, setShowModalTask} from "../../redux/action";
-import './style.css';
+import { fetchDataTodo, setShowDeleteTask, setShowModalTask } from "../../redux/action";
 import API from "../../config/api";
+import './style.css';
 
 function Item(props) {
     const {
@@ -13,6 +14,14 @@ function Item(props) {
         showMoveLeft, todos, index, fetchTodo,
     } = props
     const { name, progress_percentage: percent, todo_id: idTodo, id } = data;
+
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "div",
+        item: { idTodo, idItem: id, name, progress: percent },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging(),
+        }),
+    }));
 
     const handleDelete = () => {
         setDeleteTask({
@@ -45,7 +54,7 @@ function Item(props) {
     }
 
     return (
-        <div className="item-box">
+        <div className="item-box" ref={drag} style={{ display: isDragging ? 'none' : 'block' }}>
             <p className="font-medium item-text">{name}</p>
             <div className="item-action-container">
                 <Progress percent={percent} />

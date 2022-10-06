@@ -25,3 +25,16 @@
     font-size: 14px;
     color: var(--dark);
 }
+
+.drop-here-box {
+    background-color: white;
+    padding: 16px;
+    border: 2px dashed var(--gray-border);
+    cursor: grab;
+}
+
+.drop-here-text {
+    font-size: 14px;
+    color: var(--gray);
+    text-align: center;
+}
